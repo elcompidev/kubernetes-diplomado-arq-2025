@@ -1,0 +1,30 @@
+{
+    "name": "kubernetes-diplomado-arq-2025",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/elcompidev/kubernetes-diplomado-arq-2025.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/elcompidev/kubernetes-diplomado-arq-2025/issues"
+    },
+    "homepage": "https://github.com/elcompidev/kubernetes-diplomado-arq-2025#readme",
+    "dependencies": {
+        "dotenv": "^16.4.7",
+        "express": "^5.1.0",
+        "express-rate-limit": "^7.5.0",
+        "redis": "^4.7.0",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1"
+    }
+}

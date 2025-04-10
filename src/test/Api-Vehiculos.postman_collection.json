@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "37fa7fe5-ebb6-469e-a153-4f06c06c66a7",
+		"name": "Api-Vehiculos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Vehiculos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/vehiculos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"vehiculos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VehiculosPorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/vehiculos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"vehiculos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculos",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/vehiculos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"vehiculos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculos",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tipo\": \"carro\",\r\n  \"marca\": \"Toyota\",\r\n  \"modelo\": \"Corolla 2021\",\r\n  \"cilindraje\": 1800,\r\n  \"max_velocidad\": 220,\r\n  \"color\": \"gris\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/vehiculos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"vehiculos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehiculos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tipo\": \"carro\",\r\n  \"marca\": \"Toyota\",\r\n  \"modelo\": \"Corolla 2021\",\r\n  \"cilindraje\": 1800,\r\n  \"max_velocidad\": 220,\r\n  \"color\": \"gris\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/vehiculos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"vehiculos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
