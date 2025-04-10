@@ -29,8 +29,8 @@ Este proyecto es una API REST desarrollada en **Node.js** con el framework **Exp
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tuusuario/nombre-del-repo.git
-cd nombre-del-repo
+git clone https://github.com/elcompidev/kubernetes-diplomado-arq-2025.git
+cd kubernetes-diplomado-arq-2025
 ```
 
 ### 2. Instalar dependencias
