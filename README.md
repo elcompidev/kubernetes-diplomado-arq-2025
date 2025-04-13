@@ -45,22 +45,16 @@ npm install
 node index.js
 ```
 
-La API estará disponible en: `http://localhost:3000`
+La API estará disponible en: `http://localhost:3000/api/v1`
 
 ---
 
 ## 🐳 Uso con Docker
 
-### Construir imagen
+### Construye y levanta los contenedores
 
 ```bash
-docker build -t api-vehiculos .
-```
-
-### Ejecutar contenedor
-
-```bash
-docker run -p 3000:3000 api-vehiculos
+docker compose up --build
 ```
 
 ---
@@ -68,12 +62,6 @@ docker run -p 3000:3000 api-vehiculos
 ## ☸️ Despliegue en Kubernetes
 
 ### 1. Instalar dependencias con Helm
-
-```bash
-
-```
-
-### 2. Acceso con port-forward
 
 ```bash
 
