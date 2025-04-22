@@ -1,4 +1,4 @@
-name: CI/CD - Deploy Node + Redis
+name: Deploy
 
 on:
   push:
@@ -7,20 +7,25 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to Docker Hub
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del código
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Conectarse vía SSH y desplegar
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd /ruta/del/proyecto/en/el/servidor
-            git pull origin main
-            docker-compose down
-            docker-compose up --build -d
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
