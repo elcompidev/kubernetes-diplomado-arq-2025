@@ -45,8 +45,8 @@ jobs:
       - name: Setup Minikube
         uses: manusa/actions-setup-minikube@v2.13.1
         with:
-          minikube version: 'v1.30.0'  # Actualiza la versión de Minikube
-          kubernetes version: 'v1.24.0'  # Actualiza la versión de Kubernetes
+          minikube version: 'v1.30.0'
+          kubernetes version: 'v1.24.0'
           github token: ${{ secrets.GITHUB_TOKEN }}
 
       # Paso 7: Esperar a que Minikube esté completamente inicializado
@@ -56,11 +56,12 @@ jobs:
           minikube status || (echo "Minikube no está corriendo" && exit 1)
           kubectl cluster-info || (echo "El clúster de Kubernetes no está listo" && exit 1)
 
-      # Paso 8: Esperar a que el nodo esté listo
+      # Paso 8: Esperar dinámicamente al nodo que esté listo
       - name: Wait for node to be ready
         run: |
-          kubectl get nodes
-          kubectl wait --for=condition=Ready node/fv-az1916-678 --timeout=120s  # Usa el nombre real del nodo
+          NODE_NAME=$(kubectl get nodes --no-headers -o custom-columns=NAME:.metadata.name)
+          echo "Esperando que el nodo $NODE_NAME esté listo..."
+          kubectl wait --for=condition=Ready node/$NODE_NAME --timeout=120s
 
       # Paso 9: Crear y exponer la app en Minikube
       - name: Deploy app to Minikube
