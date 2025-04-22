@@ -7,22 +7,26 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to Docker Hub
+    name: Build, Push and Deploy to Minikube
     runs-on: ubuntu-latest
 
     steps:
+      # Paso 1: Checkout del repositorio
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Paso 2: Configurar Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Paso 3: Login en Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Paso 4: Build y push de la imagen Docker
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -30,20 +34,35 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
 
+      # Paso 5: Instalar kubectl
+      - name: Install kubectl
+        run: |
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.24.0/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+
+      # Paso 6: Configuración de Minikube
       - name: Setup Minikube
         uses: manusa/actions-setup-minikube@v2.13.1
         with:
-          minikube version: 'v1.26.0'
-          kubernetes version: 'v1.32.0'
+          minikube version: 'v1.30.0'  # Actualiza la versión de Minikube
+          kubernetes version: 'v1.24.0'  # Actualiza la versión de Kubernetes
           github token: ${{ secrets.GITHUB_TOKEN }}
 
+      # Paso 7: Esperar que Minikube esté listo
       - name: Wait for Minikube
         run: |
           echo "Esperando que Minikube esté listo..."
-          kubectl wait --for=condition=Ready nodes --timeout=60s
+          kubectl wait --for=condition=Ready nodes --timeout=120s  # Aumenta el timeout
 
+      # Paso 8: Crear y exponer la app en Minikube
       - name: Deploy app to Minikube
         run: |
           kubectl create deployment my-app --image=${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
           kubectl expose deployment my-app --type=NodePort --port=3000
           kubectl get all
+
+      # Paso 9: Obtener logs de Minikube para depuración
+      - name: Get Minikube logs
+        run: |
+          minikube logs
