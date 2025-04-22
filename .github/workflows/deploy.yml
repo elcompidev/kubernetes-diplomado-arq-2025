@@ -54,7 +54,7 @@ jobs:
         run: |
           echo "Esperando que Minikube esté listo..."
           minikube status || (echo "Minikube no está corriendo" && exit 1)
-          kubectl cluster-info --timeout=60s || (echo "El clúster de Kubernetes no está listo" && exit 1)
+          kubectl cluster-info || (echo "El clúster de Kubernetes no está listo" && exit 1)
 
       # Paso 8: Esperar que el nodo esté listo
       - name: Wait for node to be ready
