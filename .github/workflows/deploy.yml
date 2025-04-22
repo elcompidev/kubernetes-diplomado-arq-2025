@@ -56,11 +56,11 @@ jobs:
           minikube status || (echo "Minikube no está corriendo" && exit 1)
           kubectl cluster-info || (echo "El clúster de Kubernetes no está listo" && exit 1)
 
-      # Paso 8: Esperar que el nodo esté listo
+      # Paso 8: Esperar a que el nodo esté listo
       - name: Wait for node to be ready
         run: |
           kubectl get nodes
-          kubectl wait --for=condition=Ready node/minikube --timeout=120s  # Especifica el nodo 'minikube'
+          kubectl wait --for=condition=Ready node/fv-az1916-678 --timeout=120s  # Usa el nombre real del nodo
 
       # Paso 9: Crear y exponer la app en Minikube
       - name: Deploy app to Minikube
