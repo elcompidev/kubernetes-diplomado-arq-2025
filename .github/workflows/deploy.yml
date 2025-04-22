@@ -74,3 +74,10 @@ jobs:
       - name: Get Minikube logs
         run: |
           minikube logs
+
+      - name: Probar app en Minikube
+        run: |
+          NODE_PORT=$(kubectl get svc my-app -o jsonpath='{.spec.ports[0].nodePort}')
+          MINIKUBE_IP=$(minikube ip)
+          echo "Accediendo a http://$MINIKUBE_IP:$NODE_PORT"
+          curl -i http://$MINIKUBE_IP:$NODE_PORT || echo "No se pudo acceder a la app"
