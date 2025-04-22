@@ -29,3 +29,21 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+
+      - name: Setup Minikube
+        uses: manusa/actions-setup-minikube@v2.13.1
+        with:
+          minikube version: 'v1.26.0'
+          kubernetes version: 'v1.32.0'
+          github token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Wait for Minikube
+        run: |
+          echo "Esperando que Minikube esté listo..."
+          kubectl wait --for=condition=Ready nodes --timeout=60s
+
+      - name: Deploy app to Minikube
+        run: |
+          kubectl create deployment my-app --image=${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+          kubectl expose deployment my-app --type=NodePort --port=3000
+          kubectl get all
