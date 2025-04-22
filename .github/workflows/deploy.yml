@@ -1,0 +1,26 @@
+name: CI/CD - Deploy Node + Redis
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Conectarse vía SSH y desplegar
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /ruta/del/proyecto/en/el/servidor
+            git pull origin main
+            docker-compose down
+            docker-compose up --build -d
