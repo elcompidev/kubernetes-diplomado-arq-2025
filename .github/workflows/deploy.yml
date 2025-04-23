@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     name: Build, Push and Deploy to Minikube
@@ -26,11 +29,24 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Bump version and push tag
+        id: versioning
+        uses: anothrNick/github-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch  # Puedes usar: patch / minor / major
+          WITH_V: true
+
+      - name: Set image tag
+        run: echo "IMAGE_TAG=${{ steps.versioning.outputs.new_tag }}" >> $GITHUB_ENV
+
       # Paso 4: Build y push de la imagen Docker
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ env.IMAGE_TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
  
