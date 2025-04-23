@@ -38,7 +38,15 @@ const precargarVehiculos = async() => {
             max_velocidad: 220,
             color: "gris"
         },
-
+        {
+            id: 5,
+            tipo: "carro",
+            marca: "Toyota",
+            modelo: "Prado",
+            cilindraje: 1800,
+            max_velocidad: 220,
+            color: "gris"
+        },
     ];
 
     for (const vehiculo of vehiculos) {
