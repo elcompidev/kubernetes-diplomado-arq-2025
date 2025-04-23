@@ -29,6 +29,15 @@ const precargarVehiculos = async() => {
             max_velocidad: 220,
             color: "rojo"
         },
+        {
+            id: 4,
+            tipo: "carro",
+            marca: "Renault",
+            modelo: "Logan",
+            cilindraje: 1800,
+            max_velocidad: 220,
+            color: "gris"
+        },
 
     ];
 
