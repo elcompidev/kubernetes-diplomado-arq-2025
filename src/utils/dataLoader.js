@@ -19,7 +19,17 @@ const precargarVehiculos = async() => {
             cilindraje: 689,
             max_velocidad: 200,
             color: "negro"
-        }
+        },
+        {
+            id: 3,
+            tipo: "carro",
+            marca: "Chevrolet",
+            modelo: "Camaro 2021",
+            cilindraje: 1800,
+            max_velocidad: 220,
+            color: "rojo"
+        },
+
     ];
 
     for (const vehiculo of vehiculos) {
